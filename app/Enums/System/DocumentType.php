@@ -8,6 +8,6 @@ enum DocumentType: string
 {
     use BaseEnum;
 
-    case User = 'user';
-    case Role = 'role';
+    case User = 'users';
+    case Role = 'roles';
 }

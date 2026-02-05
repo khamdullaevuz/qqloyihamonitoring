@@ -6,17 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Role\RoleRequest;
 use App\Http\Resources\RoleResource;
 use App\Models\Role;
+use App\Services\Role\RoleService;
+use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
-    public function index()
+    public function __construct(public RoleService $service) { }
+
+    public function index(Request $request)
     {
-        return RoleResource::collection(Role::all());
+        $roles = $this->service->all($request->all());
+
+        return RoleResource::collection($roles);
     }
 
     public function store(RoleRequest $request)
     {
-        return new RoleResource(Role::create($request->validated()));
+        $this->service->create($request->toDto());
+
+        return response()->noContent();
     }
 
     public function show(Role $role)
@@ -26,9 +34,9 @@ class RoleController extends Controller
 
     public function update(RoleRequest $request, Role $role)
     {
-        $role->update($request->validated());
+        $this->service->update($role, $request->toDto());
 
-        return new RoleResource($role);
+        return response()->noContent();
     }
 
     public function destroy(Role $role)

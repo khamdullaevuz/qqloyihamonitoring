@@ -1,34 +1,21 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Database\Seeders;
 
 use App\Enums\System\CRUD;
 use App\Enums\System\DocumentType;
 use App\Enums\System\MenuType;
 use App\Enums\System\PermissionType;
 use App\Models\Permission;
-use Illuminate\Console\Command;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
-class DefaultPermissionsCommand extends Command
+class PermissionSeeder extends Seeder
 {
     /**
-     * The name and signature of the console command.
-     *
-     * @var string
+     * Run the database seeds.
      */
-    protected $signature = 'app:default-permissions-command';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Command description';
-
-    /**
-     * Execute the console command.
-     */
-    public function handle()
+    public function run(): void
     {
         $this->documentPermissions();
         $this->menuPermissions();
@@ -40,6 +27,7 @@ class DefaultPermissionsCommand extends Command
             foreach (CRUD::getValues() as $crud) {
                 Permission::updateOrCreate(
                     [
+                        'id' => uuid(),
                         'type' => PermissionType::Documents,
                         'name' => $document->value . '.' . $crud,
                     ]
@@ -53,6 +41,7 @@ class DefaultPermissionsCommand extends Command
         foreach (MenuType::cases() as $menu) {
             Permission::updateOrCreate(
                 [
+                    'id' => uuid(),
                     'type' => PermissionType::Menus,
                     'name' => $menu->value . '.' . CRUD::Read->value,
                 ]

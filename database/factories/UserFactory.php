@@ -29,7 +29,6 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'phone' => '9989' . fake()->unique()->numberBetween(0, 99999999),
             'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
         ];
     }
 }

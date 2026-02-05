@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Role;
 
+use App\DTO\RoleDto;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RoleRequest extends FormRequest
@@ -11,11 +12,17 @@ class RoleRequest extends FormRequest
         return [
                 'name'   => ['required'],
                 's_code' => ['nullable'],
+                'permissions' => ['nullable', 'array'],
+                'permissions.*' => ['uuid', 'exists:permissions,id'],
         ];
     }
 
-    public function authorize(): bool
+    public function toDto(): RoleDto
     {
-        return true;
+        return new RoleDto(
+            name: $this->input('name'),
+            s_code: $this->input('s_code'),
+            permissions: $this->input('permissions', []),
+        );
     }
 }
