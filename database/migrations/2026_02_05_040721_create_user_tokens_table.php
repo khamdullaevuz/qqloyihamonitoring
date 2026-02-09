@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignIdFor(User::class)->constrained();
             $table->text('token')->useCurrent();
-            $table->text('refresh_token')->useCurrent()
+            $table->text('refresh_token')->useCurrent();
             $table->timestamp('expired_at');
             $table->timestamp('refresh_expired_at');
             $table->timestamps();
