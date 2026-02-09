@@ -7,6 +7,7 @@ use App\Services\Auth\AuthService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
@@ -17,7 +18,7 @@ class AuthController extends Controller implements HasMiddleware
     /**
      * Get a JWT via given credentials.
      *
-     * @return array
+     * @return Response
      * @throws Exception
      */
     public function login(Request $request)
@@ -29,7 +30,25 @@ class AuthController extends Controller implements HasMiddleware
             ]
         );
 
-        return $this->service->login($credentials);
+        $result = $this->service->login($credentials);
+
+        $expires_in = $result['expires_in'] / 60;
+        $refresh_ttl = $result['refresh_ttl'] / 60;
+
+        $accessToken = $result['access_token'];
+        $refreshToken = $result['refresh_token'];
+
+        $accessToken = makeCookie('QQ_USER_AT', $accessToken, $expires_in);
+        $accessTokenTtl = makeCookie('QQ_USER_ATT', $expires_in, $expires_in);
+        $refreshToken = makeCookie('QQ_USER_RT', $refreshToken, $refresh_ttl);
+        $refreshTokenTtl = makeCookie('QQ_USER_RTT', $refresh_ttl, $refresh_ttl);
+
+        return response()
+            ->noContent()
+            ->withCookie($accessToken)
+            ->withCookie($accessTokenTtl)
+            ->withCookie($refreshToken)
+            ->withCookie($refreshTokenTtl);
     }
 
     /**
@@ -45,20 +64,30 @@ class AuthController extends Controller implements HasMiddleware
     /**
      * Log the user out (Invalidate the token).
      *
-     * @return JsonResponse
+     * @return Response
      * @throws Exception
      */
     public function logout()
     {
         $this->service->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        $accessToken     = removeCookie('D_USER_AT');
+        $accessTokenTtl  = removeCookie('D_USER_ATT');
+        $refreshToken    = removeCookie('D_USER_RT');
+        $refreshTokenTtl = removeCookie('D_USER_RTT');
+
+        return response()
+            ->noContent()
+            ->withCookie($accessToken)
+            ->withCookie($accessTokenTtl)
+            ->withCookie($refreshToken)
+            ->withCookie($refreshTokenTtl);
     }
 
     /**
      * Refresh a token.
      *
-     * @return array|JsonResponse
+     * @return Response|JsonResponse
      * @throws Exception
      */
     public function refresh(Request $request)
@@ -72,7 +101,24 @@ class AuthController extends Controller implements HasMiddleware
                 400);
         }
 
-        return $this->service->refresh($refresh_token);
+        $result = $this->service->refresh($refresh_token);
+        $expires_in = $result['expires_in'] / 60;
+        $refresh_ttl = $result['refresh_ttl'] / 60;
+
+        $accessToken = $result['access_token'];
+        $refreshToken = $result['refresh_token'];
+
+        $accessToken = makeCookie('QQ_USER_AT', $accessToken, $expires_in);
+        $accessTokenTtl = makeCookie('QQ_USER_ATT', $expires_in, $expires_in);
+        $refreshToken = makeCookie('QQ_USER_RT', $refreshToken, $refresh_ttl);
+        $refreshTokenTtl = makeCookie('QQ_USER_RTT', $refresh_ttl, $refresh_ttl);
+
+        return response()
+            ->noContent()
+            ->withCookie($accessToken)
+            ->withCookie($accessTokenTtl)
+            ->withCookie($refreshToken)
+            ->withCookie($refreshTokenTtl);
     }
 
     public static function middleware()

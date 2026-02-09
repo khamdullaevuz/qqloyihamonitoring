@@ -34,3 +34,37 @@ if (!function_exists('refreshTokenGenerate')) {
         return $token;
     }
 }
+
+if(!function_exists('makeCookie'))
+{
+    function makeCookie(string $key, string $value, int $ttl)
+    {
+        return cookie(
+            name: $key,
+            value: $value,
+            minutes: $ttl,
+            path: '/',
+            domain: str_replace(['http://', 'https://'], '', config('app.url')),
+            secure: true,
+            httpOnly: true,
+            sameSite: 'None'
+        );
+    }
+}
+
+if(!function_exists('removeCookie'))
+{
+    function removeCookie(string $key)
+    {
+        return cookie(
+            name: $key,
+            value: '',
+            minutes: -1,
+            path: '/',
+            domain: str_replace(['http://', 'https://'], '', config('app.url')),
+            secure: true,
+            httpOnly: true,
+            sameSite: 'None'
+        );
+    }
+}

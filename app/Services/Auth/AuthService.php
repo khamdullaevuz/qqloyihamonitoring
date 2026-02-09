@@ -84,7 +84,6 @@ class AuthService
         return [
             'access_token'  => $token,
             'refresh_token' => $refresh_token,
-            'token_type'    => 'bearer',
             'expires_in'    => config('jwt.ttl') * 60,
             'refresh_ttl'   => config('jwt.refresh_ttl') * 60,
         ];
