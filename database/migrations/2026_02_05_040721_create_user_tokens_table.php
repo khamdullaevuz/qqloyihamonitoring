@@ -15,10 +15,10 @@ return new class extends Migration
         Schema::create('user_tokens', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignIdFor(User::class)->constrained();
-            $table->text('token')->useCurrent();
-            $table->text('refresh_token')->useCurrent();
-            $table->timestamp('expired_at');
-            $table->timestamp('refresh_expired_at');
+            $table->text('token');
+            $table->text('refresh_token');
+            $table->timestamp('expired_at')->nullable();
+            $table->timestamp('refresh_expired_at')->nullable();
             $table->timestamps();
         });
     }
