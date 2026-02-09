@@ -18,7 +18,7 @@ class RoleService
         $role->permissions()->sync($dto->permissions);
     }
 
-    public function update(Role $role, RoleDto $dto): Role
+    public function update(Role $role, RoleDto $dto)
     {
         $role->update($dto->toArray());
 

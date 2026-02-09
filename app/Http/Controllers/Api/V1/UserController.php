@@ -40,7 +40,7 @@ class UserController extends Controller
         return response()->noContent();
     }
 
-    public function delete(User $user)
+    public function destroy(User $user)
     {
         $user->delete();
 

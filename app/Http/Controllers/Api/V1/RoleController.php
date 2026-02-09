@@ -43,6 +43,6 @@ class RoleController extends Controller
     {
         $role->delete();
 
-        return response()->json();
+        return response()->noContent();
     }
 }
