@@ -4,6 +4,7 @@ namespace App\Http\Requests\User;
 
 use App\DTO\UserDto;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UserRequest extends FormRequest
     {
         return [
             'name'  => 'required|string|max:255',
-            'phone' => 'required|string|max:20|unique:users,phone',
+            'phone' => ['required','string','max:20', Rule::unique('users', 'phone')->ignore($this->user)],
             'password' => 'required|string|min:8',
         ];
     }
