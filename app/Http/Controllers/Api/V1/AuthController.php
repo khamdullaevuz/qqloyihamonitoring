@@ -71,10 +71,10 @@ class AuthController extends Controller implements HasMiddleware
     {
         $this->service->logout();
 
-        $accessToken     = removeCookie('D_USER_AT');
-        $accessTokenTtl  = removeCookie('D_USER_ATT');
-        $refreshToken    = removeCookie('D_USER_RT');
-        $refreshTokenTtl = removeCookie('D_USER_RTT');
+        $accessToken     = removeCookie('QQ_USER_AT');
+        $accessTokenTtl  = removeCookie('QQ_USER_ATT');
+        $refreshToken    = removeCookie('QQ_USER_RT');
+        $refreshTokenTtl = removeCookie('QQ_USER_RTT');
 
         return response()
             ->noContent()
