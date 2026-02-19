@@ -13,7 +13,7 @@ class UserRequest extends FormRequest
         return [
             'name'  => 'required|string|max:255',
             'phone' => ['required','string','max:20', Rule::unique('users', 'phone')->ignore($this->user)],
-            'password' => 'required|string|min:8',
+            'password' => 'nullable|string|min:8',
         ];
     }
 
