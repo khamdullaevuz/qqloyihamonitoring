@@ -3,16 +3,16 @@
 namespace App\Services\Auth;
 
 use App\DTO\UserTokenDto;
+use App\Exceptions\AuthException;
 use App\Models\UserToken;
 use Carbon\CarbonImmutable;
-use Exception;
 use Illuminate\Contracts\Encryption\DecryptException;
 use JWTAuth;
 
 class AuthService
 {
     /**
-     * @throws Exception
+     * @throws AuthException
      */
     public function login(array $data)
     {
@@ -22,14 +22,14 @@ class AuthService
         ];
 
         if (!$token = auth()->attempt($credentials)) {
-            throw new Exception('Unauthorized');
+            throw new AuthException('Unauthorized', 400);
         }
 
         return $this->processToken($token);
     }
 
     /**
-     * @throws Exception
+     * @throws AuthException
      */
     public function refresh(string $refresh_token)
     {
@@ -39,13 +39,13 @@ class AuthService
             if ($userToken === null || $userToken->refresh_expired_at->lessThan(now())) {
                 $userToken?->delete();
 
-                throw new Exception(__('validation.refresh_token_is_not_valid'), 401);
+                throw new AuthException(__('validation.refresh_token_is_not_valid'), 401);
             }
             $token = auth()->login($userToken->user);
 
             return $this->processToken(token: $token, userToken: $userToken);
         } catch (DecryptException $decryptException) {
-            throw new Exception(__('validation.refresh_token_is_not_valid'), 400);
+            throw new AuthException(__('validation.refresh_token_is_not_valid'), 400);
         }
     }
 
@@ -53,7 +53,7 @@ class AuthService
     {
         $jwtToken = JWTAuth::getToken();
         if (!$jwtToken) {
-            throw new Exception(__('auth.token_not_provided'), 400);
+            throw new AuthException(__('auth.token_not_provided'), 400);
         }
 
         $userToken = UserToken::firstWhere('token', $jwtToken->get());
