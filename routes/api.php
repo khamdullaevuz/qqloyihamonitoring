@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\DistrictController;
 use App\Http\Controllers\Api\V1\PermissionController;
+use App\Http\Controllers\Api\V1\RegionController;
 use App\Http\Controllers\Api\V1\RoleController;
 use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Support\Facades\Route;
@@ -17,4 +19,6 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::apiResource('users', UserController::class);
     Route::apiResource('roles', RoleController::class);
     Route::get('permissions', [PermissionController::class, 'index']);
+    Route::get('regions', [RegionController::class, 'index']);
+    Route::get('districts', [DistrictController::class, 'index']);
 });
