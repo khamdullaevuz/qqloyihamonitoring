@@ -22,7 +22,7 @@ class UserRequest extends FormRequest
         return new UserDto(
             name: $this->input('name'),
             phone: $this->input('phone'),
-            password: $this->input('password'),
+            password: $this->input('password') ? encrypt($this->input('password')) : $this->user->password,
         );
     }
 }
