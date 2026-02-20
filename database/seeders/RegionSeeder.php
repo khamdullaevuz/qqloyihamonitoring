@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\District;
 use App\Models\Region;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
@@ -31,12 +32,11 @@ class RegionSeeder extends Seeder
 
             foreach ($districts as $district) {
                 if ($district['region_id'] === $region['id']) {
-                    $_region->districts()->create(
-                        [
-                            'id'   => uuid(),
-                            'name' => $district['name'],
-                        ]
-                    );
+                    District::create([
+                                         'id'        => uuid(),
+                                         'region_id' => $_region->id,
+                                         'name'      => $district['name'],
+                                     ]);
                 }
             }
         }

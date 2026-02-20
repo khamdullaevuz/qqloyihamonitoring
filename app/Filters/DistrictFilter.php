@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class DistrictFilter extends BaseFilter implements Searchable
 {
+    public const string NAME      = 'name';
     public const string REGION_ID = 'region_id';
 
     public function __construct(array $queryParams)
@@ -36,12 +37,14 @@ class DistrictFilter extends BaseFilter implements Searchable
     public function searchFields(string $search): array
     {
         return [
+            self::NAME => self::NAME,
         ];
     }
 
     public function sortFields(): array
     {
         return [
+            self::NAME => self::NAME,
         ];
     }
 }
