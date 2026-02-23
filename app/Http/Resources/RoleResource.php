@@ -17,6 +17,7 @@ class RoleResource extends JsonResource
                 's_code'     => $this->s_code,
                 'created_at' => $this->created_at,
                 'updated_at' => $this->updated_at,
+                'permissions' => PermissionResource::collection($this->permissions),
         ];
     }
 }
