@@ -26,7 +26,7 @@ class UserRequest extends FormRequest
         return new UserDto(
             name: $this->input('name'),
             phone: $this->input('phone'),
-            password: $this->input('password') ? bcrypt($this->input('password')) : $this->user->password,
+            password: $this->input('password') ? bcrypt($this->input('password')) : $this->user?->password,
             roles: $this->input('roles') ?? [],
             regions: $this->input('regions') ?? [],
         );
