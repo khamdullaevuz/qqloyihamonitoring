@@ -24,7 +24,6 @@ class RegionSeeder extends Seeder
         foreach ($regions as $region) {
             $_region = Region::create(
                 [
-                    'id'   => uuid(),
                     'name' => $region['name'],
                 ]
             );
@@ -33,7 +32,6 @@ class RegionSeeder extends Seeder
             foreach ($districts as $district) {
                 if ($district['region_id'] === $region['id']) {
                     District::create([
-                                         'id'        => uuid(),
                                          'region_id' => $_region->id,
                                          'name'      => $district['name'],
                                      ]);

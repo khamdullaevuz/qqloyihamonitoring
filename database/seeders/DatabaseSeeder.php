@@ -9,7 +9,7 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
+    //use WithoutModelEvents;
 
     /**
      * Seed the application's database.
@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         //
         //$this->call(PermissionSeeder::class);
         //$this->call(RoleSeeder::class);
-        $this->call(RegionSeeder::class);
+        //$this->call(RegionSeeder::class);
+        $this->call(StatusSeeder::class);
     }
 }

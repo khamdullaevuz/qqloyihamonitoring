@@ -14,12 +14,16 @@ class UserService
 
     public function create(UserDto $dto)
     {
-        return User::create($dto->toArray());
+        $user = User::create($dto->toArray());
+
+        $user->roles()->sync($dto->roles);
     }
 
     public function update(User $user, UserDto $dto)
     {
         $user->update($dto->toArray());
+
+        $user->roles()->sync($dto->roles);
 
         return $user;
     }

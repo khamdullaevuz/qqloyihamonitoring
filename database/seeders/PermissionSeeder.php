@@ -27,7 +27,6 @@ class PermissionSeeder extends Seeder
             foreach (CRUD::getValues() as $crud) {
                 Permission::updateOrCreate(
                     [
-                        'id' => uuid(),
                         'type' => PermissionType::Documents,
                         'name' => $document->value . '.' . $crud,
                     ]
@@ -41,7 +40,6 @@ class PermissionSeeder extends Seeder
         foreach (MenuType::cases() as $menu) {
             Permission::updateOrCreate(
                 [
-                    'id' => uuid(),
                     'type' => PermissionType::Menus,
                     'name' => $menu->value . '.' . CRUD::Read->value,
                 ]

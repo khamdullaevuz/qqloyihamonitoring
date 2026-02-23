@@ -2,11 +2,8 @@
 
 namespace App\Traits;
 
-use Ramsey\Uuid\Uuid;
-
 /**
  * Trait Uuids
- * @package Modules\Static\Entities\Traits
  * @psalm-api
  */
 trait Uuids

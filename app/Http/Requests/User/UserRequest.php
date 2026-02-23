@@ -14,6 +14,8 @@ class UserRequest extends FormRequest
             'name'  => 'required|string|max:255',
             'phone' => ['required','string','max:20', Rule::unique('users', 'phone')->ignore($this->user)],
             'password' => 'nullable|string|min:8',
+            'roles' => 'nullable|array',
+            'roles.*' => 'uuid|exists:roles,id',
         ];
     }
 
@@ -23,6 +25,7 @@ class UserRequest extends FormRequest
             name: $this->input('name'),
             phone: $this->input('phone'),
             password: $this->input('password') ? encrypt($this->input('password')) : $this->user->password,
+            roles: $this->input('roles') ?? []
         );
     }
 }

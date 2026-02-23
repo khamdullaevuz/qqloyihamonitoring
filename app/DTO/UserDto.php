@@ -8,6 +8,7 @@ class UserDto
         public string $name,
         public string $phone,
         public ?string $password = null,
+        public array $roles = []
     ) { }
 
     public function toArray(): array
