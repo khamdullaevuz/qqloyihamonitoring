@@ -16,6 +16,8 @@ class UserRequest extends FormRequest
             'password' => 'nullable|string|min:8',
             'roles' => 'nullable|array',
             'roles.*' => 'uuid|exists:roles,id',
+            'regions' => 'nullable|array',
+            'regions.*' => 'uuid|exists:regions,id',
         ];
     }
 
@@ -25,7 +27,8 @@ class UserRequest extends FormRequest
             name: $this->input('name'),
             phone: $this->input('phone'),
             password: $this->input('password') ? encrypt($this->input('password')) : $this->user->password,
-            roles: $this->input('roles') ?? []
+            roles: $this->input('roles') ?? [],
+            regions: $this->input('regions') ?? [],
         );
     }
 }

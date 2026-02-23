@@ -17,6 +17,7 @@ class UserService
         $user = User::create($dto->toArray());
 
         $user->roles()->sync($dto->roles);
+        $user->regions()->sync($dto->regions);
     }
 
     public function update(User $user, UserDto $dto)
@@ -24,6 +25,7 @@ class UserService
         $user->update($dto->toArray());
 
         $user->roles()->sync($dto->roles);
+        $user->regions()->sync($dto->regions);
 
         return $user;
     }
