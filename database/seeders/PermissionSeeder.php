@@ -18,7 +18,6 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $this->documentPermissions();
-        $this->menuPermissions();
     }
 
     public function documentPermissions(): void
@@ -32,18 +31,6 @@ class PermissionSeeder extends Seeder
                     ]
                 );
             }
-        }
-    }
-
-    public function menuPermissions(): void
-    {
-        foreach (MenuType::cases() as $menu) {
-            Permission::updateOrCreate(
-                [
-                    'type' => PermissionType::Menus,
-                    'name' => $menu->value . '.' . CRUD::Read->value,
-                ]
-            );
         }
     }
 }

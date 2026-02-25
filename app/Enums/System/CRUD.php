@@ -14,10 +14,11 @@ enum CRUD: string
     case Delete = 'delete';
     case Confirm = 'confirm';
     case Admin = 'admin';
+    case Menu = 'menu';
     case ReadAll = 'read_all';
 
     public static function getValues(): array
     {
-        return ['create', 'read', 'update', 'delete', 'admin'];
+        return ['create', 'read', 'update', 'delete', 'admin', 'menu'];
     }
 }
