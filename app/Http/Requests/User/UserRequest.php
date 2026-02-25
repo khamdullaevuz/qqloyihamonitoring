@@ -16,7 +16,7 @@ class UserRequest extends FormRequest
                 'required',
                 'string',
                 'max:20',
-                Rule::unique('users', 'phone')->withoutTrashed()->ignoreModel($this->user)
+                Rule::unique('users', 'phone')->withoutTrashed()->ignore($this->user?->id)
             ],
             'password' => 'nullable|string|min:8',
             'roles' => 'nullable|array',
