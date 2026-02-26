@@ -44,7 +44,7 @@ if(!function_exists('makeCookie'))
             value: $value,
             minutes: $ttl,
             path: '/',
-            domain: str_replace(['http://', 'https://'], '', config('app.frontend_url')),
+            //domain: str_replace(['http://', 'https://'], '', config('app.frontend_url')),
             secure: true,
             httpOnly: true,
             sameSite: 'None'
@@ -61,7 +61,7 @@ if(!function_exists('removeCookie'))
             value: '',
             minutes: -1,
             path: '/',
-            domain: str_replace(['http://', 'https://'], '', config('app.url')),
+            //domain: str_replace(['http://', 'https://'], '', config('app.frontend_url')),
             secure: true,
             httpOnly: true,
             sameSite: 'None'
