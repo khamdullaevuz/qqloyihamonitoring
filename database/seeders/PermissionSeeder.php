@@ -26,7 +26,6 @@ class PermissionSeeder extends Seeder
             foreach (CRUD::getValues() as $crud) {
                 Permission::updateOrCreate(
                     [
-                        'type' => PermissionType::Documents,
                         'name' => $document->value . '.' . $crud,
                     ]
                 );

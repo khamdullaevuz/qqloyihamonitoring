@@ -10,4 +10,8 @@ enum DocumentType: string
 
     case User = 'users';
     case Role = 'roles';
+    case Projects = 'projects';
+    case Regions = 'regions';
+    case Districts = 'districts';
+    case Currencies = 'currencies';
 }

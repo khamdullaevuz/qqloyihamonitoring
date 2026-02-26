@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\CurrencyController;
 use App\Http\Controllers\Api\V1\DistrictController;
 use App\Http\Controllers\Api\V1\PermissionController;
+use App\Http\Controllers\Api\V1\ProjectController;
 use App\Http\Controllers\Api\V1\RegionController;
 use App\Http\Controllers\Api\V1\RoleController;
 use App\Http\Controllers\Api\V1\StatusController;
@@ -19,8 +21,10 @@ Route::group(['middleware' => 'api', 'prefix' => 'web/auth'], function () {
 Route::group(['middleware' => 'auth:api'], function(){
     Route::apiResource('users', UserController::class);
     Route::apiResource('roles', RoleController::class);
+    Route::apiResource('projects', ProjectController::class);
     Route::apiResource('statuses', StatusController::class);
     Route::get('permissions', [PermissionController::class, 'index']);
     Route::get('regions', [RegionController::class, 'index']);
     Route::get('districts', [DistrictController::class, 'index']);
+    Route::get('currencies', [CurrencyController::class, 'index']);
 });

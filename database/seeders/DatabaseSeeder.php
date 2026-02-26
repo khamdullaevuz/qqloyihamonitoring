@@ -18,14 +18,14 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Super Admin',
-            'phone' => '998000000000',
-        ]);
+        //User::factory()->create([
+        //    'name' => 'Super Admin',
+        //    'phone' => '998000000000',
+        //]);
 
         $this->call(PermissionSeeder::class);
-        $this->call(RoleSeeder::class);
-        $this->call(RegionSeeder::class);
-        $this->call(StatusSeeder::class);
+        //$this->call(RoleSeeder::class);
+        //$this->call(RegionSeeder::class);
+        //$this->call(StatusSeeder::class);
     }
 }
