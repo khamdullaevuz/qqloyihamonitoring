@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Services\Auth\AuthService;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller implements HasMiddleware
 {
@@ -58,7 +60,11 @@ class AuthController extends Controller implements HasMiddleware
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        $user = User::find(Auth::id());
+
+        $user->load(['roles', 'regions']);
+
+        return response()->json($user);
     }
 
     /**
