@@ -62,7 +62,7 @@ class AuthController extends Controller implements HasMiddleware
     {
         $user = User::find(Auth::id());
 
-        $user->load(['roles', 'regions']);
+        $user->load(['roles.permissions', 'regions']);
 
         return response()->json($user);
     }
